@@ -9,6 +9,7 @@ export function PetsIndex(props) {
           <p>Birthday: {pet.birthday}</p>
           <p>User_id: {pet.user_id}</p>
           <p>Breed_id: {pet.breed_id}</p>
+          <button onClick={() => props.onShowPet(pet)}>More info</button>
         </div>
       ))}
     </div>

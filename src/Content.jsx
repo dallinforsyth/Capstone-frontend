@@ -5,9 +5,12 @@ import { PetsIndex } from "./PetsIndex";
 import axios, { Axios } from "axios";
 import { useState, useEffect } from "react";
 import { PetsNew } from "./PetsNew";
+import { Modal } from "./Modal";
 
 export function Content() {
   const [pets, setPets] = useState([]);
+  const [isPetsShowVisible, setIsPetsShowVisible] = useState(false);
+  const [currentPet, setCurrentPet] = useState({});
 
   const handleIndexPets = () => {
     console.log("handleIndexPets");
@@ -25,6 +28,17 @@ export function Content() {
     });
   };
 
+  const handleShowPet = (pet) => {
+    console.log("handleShowPet", pet);
+    setIsPetsShowVisible(true);
+    setCurrentPet(pet);
+  };
+
+  const handleClose = () => {
+    console.log("handleClose");
+    setIsPetsShowVisible(false);
+  };
+
   useEffect(handleIndexPets, []);
 
   return (
@@ -33,7 +47,10 @@ export function Content() {
       <Login />
       <LogoutLink />
       <PetsNew onCreatePet={handleCreatePet} />
-      <PetsIndex pets={pets} />
+      <PetsIndex pets={pets} onShowPet={handleShowPet} />
+      <Modal show={isPetsShowVisible} onClose={handleClose}>
+        <h1>Test</h1>
+      </Modal>
       <h1>Welcome to React!</h1>
     </div>
   );
