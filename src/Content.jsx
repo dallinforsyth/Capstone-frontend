@@ -2,25 +2,37 @@ import { Signup } from "./Signup";
 import { Login } from "./Login";
 import { LogoutLink } from "./LogoutLink";
 import { PetsIndex } from "./PetsIndex";
-import { Axios } from "axios";
+import axios, { Axios } from "axios";
+import { useState, useEffect } from "react";
+import { PetsNew } from "./PetsNew";
 
 export function Content() {
-  const pets = [
-    {
-      id: 1,
-      name: "Ace",
-      birthday: "02/14/2019",
-      image_url: "https://i.pinimg.com/originals/6f/df/bc/6fdfbc41d6a8e26d4b9073bc1afd899f.jpg",
-      user_id: 1,
-      breed_id: 1,
-    },
-  ];
+  const [pets, setPets] = useState([]);
+
+  const handleIndexPets = () => {
+    console.log("handleIndexPets");
+    axios.get("http://localhost:3000/pets.json").then((response) => {
+      console.log(response.data);
+      setPets(response.data);
+    });
+  };
+
+  const handleCreatePet = (params, successCallback) => {
+    console.log("handleCreatePet", params);
+    axios.post("http://localhost:3000/pets.json", params).then((response) => {
+      setPets([...pets, response.data]);
+      successCallback();
+    });
+  };
+
+  useEffect(handleIndexPets, []);
 
   return (
     <div>
       <Signup />
       <Login />
       <LogoutLink />
+      <PetsNew onCreatePet={handleCreatePet} />
       <PetsIndex pets={pets} />
       <h1>Welcome to React!</h1>
     </div>
