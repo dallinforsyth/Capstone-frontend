@@ -8,7 +8,8 @@ export function PetsIndex(props) {
           <img src={pet.image_url} />
           <p>Birthday: {pet.birthday}</p>
           <p>User_id: {pet.user_id}</p>
-          <p>Breed_id: {pet.breed_id}</p>
+          <p>Breed: {pet.breed.classification}</p>
+          <p>Species: {pet.breed.animal_type}</p>
           <button onClick={() => props.onShowPet(pet)}>More info</button>
         </div>
       ))}

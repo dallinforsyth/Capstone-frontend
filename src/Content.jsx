@@ -6,6 +6,8 @@ import axios, { Axios } from "axios";
 import { useState, useEffect } from "react";
 import { PetsNew } from "./PetsNew";
 import { Modal } from "./Modal";
+import { PetsShow } from "./PetShow";
+import { BreedsNew } from "./BreedsNew";
 
 export function Content() {
   const [pets, setPets] = useState([]);
@@ -46,10 +48,12 @@ export function Content() {
       <Signup />
       <Login />
       <LogoutLink />
+
       <PetsNew onCreatePet={handleCreatePet} />
+      <BreedsNew />
       <PetsIndex pets={pets} onShowPet={handleShowPet} />
       <Modal show={isPetsShowVisible} onClose={handleClose}>
-        <h1>Test</h1>
+        <PetsShow pet={currentPet} />
       </Modal>
       <h1>Welcome to React!</h1>
     </div>
