@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { PetsNew } from "./PetsNew";
 import { Modal } from "./Modal";
 import { PetsShow } from "./PetShow";
-import { BreedsNew } from "./BreedsNew";
+import { FoodSchedulesNew } from "./FoodSchedulesNew";
 
 export function Content() {
   const [pets, setPets] = useState([]);
@@ -22,14 +22,6 @@ export function Content() {
     });
   };
 
-  const handleCreatePet = (params, successCallback) => {
-    console.log("handleCreatePet", params);
-    axios.post("http://localhost:3000/pets.json", params).then((response) => {
-      setPets([...pets, response.data]);
-      successCallback();
-    });
-  };
-
   const handleShowPet = (pet) => {
     console.log("handleShowPet", pet);
     setIsPetsShowVisible(true);
@@ -40,6 +32,30 @@ export function Content() {
     console.log("handleClose");
     setIsPetsShowVisible(false);
   };
+  const handleCreatePet = (params, successCallback) => {
+    console.log("handleCreatePet", params);
+    axios.post("http://localhost:3000/pets.json", params).then((response) => {
+      setPets([...pets, response.data]);
+      successCallback();
+    });
+  };
+
+  const handleCreateFoodSchedule = (params, successCallback) => {
+    console.log("handleCreateFoodSchedule", params);
+    axios.post("http://localhost:3000/food_schedules.json", params).then((response) => {
+      const updatedFoodSchedules = [...currentPet["food_schedules"], response.data];
+      setCurrentPet({ ...currentPet, food_schedules: updatedFoodSchedules });
+      setPets(
+        pets.map((pet) => {
+          if (pet.id === currentPet.id) {
+            pet.food_schedules = updatedFoodSchedules;
+          }
+          return pet;
+        })
+      );
+      successCallback();
+    });
+  };
 
   useEffect(handleIndexPets, []);
 
@@ -48,12 +64,11 @@ export function Content() {
       <Signup />
       <Login />
       <LogoutLink />
-
       <PetsNew onCreatePet={handleCreatePet} />
-      <BreedsNew />
+
       <PetsIndex pets={pets} onShowPet={handleShowPet} />
       <Modal show={isPetsShowVisible} onClose={handleClose}>
-        <PetsShow pet={currentPet} />
+        <PetsShow pet={currentPet} onCreateFoodSchedule={handleCreateFoodSchedule} />
       </Modal>
       <h1>Welcome to React!</h1>
     </div>
