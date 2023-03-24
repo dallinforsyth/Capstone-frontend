@@ -1,10 +1,12 @@
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
+
 export function FoodSchedulesNew(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const params = new FormData(event.target);
+    console.log(props.pet.id);
     params.append("pet_id", props.pet.id);
-
     props.onCreateFoodSchedule(params, () => event.target.reset());
   };
 

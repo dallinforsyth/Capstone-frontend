@@ -8,11 +8,15 @@ import { PetsNew } from "./PetsNew";
 import { Modal } from "./Modal";
 import { PetsShow } from "./PetShow";
 import { FoodSchedulesNew } from "./FoodSchedulesNew";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { PetsShowPage } from "./PetsShowPage";
+import { useNavigate } from "react-router-dom";
 
 export function Content() {
   const [pets, setPets] = useState([]);
   const [isPetsShowVisible, setIsPetsShowVisible] = useState(false);
   const [currentPet, setCurrentPet] = useState({});
+  const navigate = useNavigate();
 
   const handleIndexPets = () => {
     console.log("handleIndexPets");
@@ -24,8 +28,7 @@ export function Content() {
 
   const handleShowPet = (pet) => {
     console.log("handleShowPet", pet);
-    setIsPetsShowVisible(true);
-    setCurrentPet(pet);
+    navigate(`/pets/${pet.id}`);
   };
 
   const handleClose = () => {
@@ -43,6 +46,7 @@ export function Content() {
   const handleCreateFoodSchedule = (params, successCallback) => {
     console.log("handleCreateFoodSchedule", params);
     axios.post("http://localhost:3000/food_schedules.json", params).then((response) => {
+      <p>{params.pet.food_schedules}</p>;
       const updatedFoodSchedules = [...currentPet["food_schedules"], response.data];
       setCurrentPet({ ...currentPet, food_schedules: updatedFoodSchedules });
       setPets(
@@ -61,16 +65,22 @@ export function Content() {
 
   return (
     <div>
-      <Signup />
-      <Login />
-      <LogoutLink />
-      <PetsNew onCreatePet={handleCreatePet} />
-
-      <PetsIndex pets={pets} onShowPet={handleShowPet} />
-      <Modal show={isPetsShowVisible} onClose={handleClose}>
-        <PetsShow pet={currentPet} onCreateFoodSchedule={handleCreateFoodSchedule} />
-      </Modal>
-      <h1>Welcome to React!</h1>
+      <Routes>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<LogoutLink />} />
+        <Route path="/new" element={<PetsNew onCreatePet={handleCreatePet} />} />
+        <Route path="//" element={<PetsIndex pets={pets} onShowPet={handleShowPet} />} />
+        <Route path="/pets" element={<PetsIndex pets={pets} onShowPet={handleShowPet} />} />
+        <Route
+          path="/pets/:id"
+          element={<PetsShowPage pet={currentPet} onCreateFoodSchedule={handleCreateFoodSchedule} />}
+        />
+        {/* <Modal show={isPetsShowVisible} onClose={handleClose}>
+          <PetsShow pet={currentPet} onCreateFoodSchedule={handleCreateFoodSchedule} />
+        </Modal>
+        <h1>Welcome to React!</h1> */}
+      </Routes>
     </div>
   );
 }
