@@ -11,6 +11,7 @@ import { FoodSchedulesNew } from "./FoodSchedulesNew";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { PetsShowPage } from "./PetsShowPage";
 import { useNavigate } from "react-router-dom";
+import { Apis } from "./Apis";
 
 export function Content() {
   const [pets, setPets] = useState([]);
@@ -76,6 +77,7 @@ export function Content() {
           path="/pets/:id"
           element={<PetsShowPage pet={currentPet} onCreateFoodSchedule={handleCreateFoodSchedule} />}
         />
+        <Route path="/info/:id" element={<Apis pet={currentPet} />} />
         {/* <Modal show={isPetsShowVisible} onClose={handleClose}>
           <PetsShow pet={currentPet} onCreateFoodSchedule={handleCreateFoodSchedule} />
         </Modal>

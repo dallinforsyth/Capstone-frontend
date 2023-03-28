@@ -24,14 +24,13 @@ export function PetsShowPage(props) {
     <div>
       <div>
         <div className="card mb-3" key={pet.id}>
-          <p>pet id{pet.id}</p>
           <img src={pet.image_url} className="card-img-top" alt="..." />
           <div className="card-body">
             <p className="card-text">Pet information</p>
             <h5 className={"card-title" + "fs-1"}>{pet.name}</h5>
             <p className="card-text">Born: {pet.birthday}</p>
-            <p className="card-text">Breed:{pet.classification}</p>
-            <p className="card-text">Species: {pet.animal_type}</p>
+            <p className="card-text">Breed: {pet.breed?.classification}</p>
+            <p className="card-text">Species: {pet.breed?.animal_type}</p>
             <p className="card-text">Food Schedule: </p>
             {pet.food_schedules?.map((item) => (
               <div key={item.id}>
