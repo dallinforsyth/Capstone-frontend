@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Card from "react-bootstrap/Card";
 
 export function FoodSchedulesNew(props) {
   const handleSubmit = (event) => {
@@ -12,7 +13,8 @@ export function FoodSchedulesNew(props) {
 
   return (
     <div>
-      <h1>New Food Schedule</h1>
+      <p></p>
+      <h4>New Food Schedule</h4>
       <form onSubmit={handleSubmit}>
         <div>
           Food: <input name="food" type="text" />

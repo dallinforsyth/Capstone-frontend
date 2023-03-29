@@ -11,13 +11,14 @@ import { FoodSchedulesNew } from "./FoodSchedulesNew";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { PetsShowPage } from "./PetsShowPage";
 import { useNavigate } from "react-router-dom";
-import { Apis } from "./Apis";
+import { AipShow } from "./AipShow";
 
 export function Content() {
   const [pets, setPets] = useState([]);
   const [isPetsShowVisible, setIsPetsShowVisible] = useState(false);
   const [currentPet, setCurrentPet] = useState({});
   const navigate = useNavigate();
+  const [foodschedules, setFoodSchedules] = useState([]);
 
   const handleIndexPets = () => {
     console.log("handleIndexPets");
@@ -47,18 +48,26 @@ export function Content() {
   const handleCreateFoodSchedule = (params, successCallback) => {
     console.log("handleCreateFoodSchedule", params);
     axios.post("http://localhost:3000/food_schedules.json", params).then((response) => {
-      <p>{params.pet.food_schedules}</p>;
+      // <p>{params.pet?.food_schedules}</p>;
       const updatedFoodSchedules = [...currentPet["food_schedules"], response.data];
       setCurrentPet({ ...currentPet, food_schedules: updatedFoodSchedules });
-      setPets(
-        pets.map((pet) => {
-          if (pet.id === currentPet.id) {
-            pet.food_schedules = updatedFoodSchedules;
-          }
-          return pet;
-        })
-      );
+      // setPets(
+      //   pets.map((pet) => {
+      //     if (pet.id === currentPet.id) {
+      //       pet.food_schedules = updatedFoodSchedules;
+      //     }
+      //     return pet;
+      //   })
+      // );
       successCallback();
+    });
+  };
+
+  const handleDestroyFoodSchedule = (foodschedule) => {
+    console.log("handleDestroyFoodSchedule", foodschedule);
+    axios.delete(`http://localhost:3000/food_schedules/${foodschedule.id}.json`).then((response) => {
+      setFoodSchedules(foodschedules.filter((p) => p.id !== foodschedule.id));
+      handleClose();
     });
   };
 
@@ -75,9 +84,15 @@ export function Content() {
         <Route path="/pets" element={<PetsIndex pets={pets} onShowPet={handleShowPet} />} />
         <Route
           path="/pets/:id"
-          element={<PetsShowPage pet={currentPet} onCreateFoodSchedule={handleCreateFoodSchedule} />}
+          element={
+            <PetsShowPage
+              pet={currentPet}
+              onCreateFoodSchedule={handleCreateFoodSchedule}
+              onDestroyFoodSchedule={handleDestroyFoodSchedule}
+            />
+          }
         />
-        <Route path="/info/:id" element={<Apis pet={currentPet} />} />
+        <Route path="/info" element={<AipShow pet={currentPet} />} />
         {/* <Modal show={isPetsShowVisible} onClose={handleClose}>
           <PetsShow pet={currentPet} onCreateFoodSchedule={handleCreateFoodSchedule} />
         </Modal>
