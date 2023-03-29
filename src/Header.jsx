@@ -17,7 +17,7 @@ export function Header() {
       <Carousel activeIndex={index} onSelect={handleSelect}>
         <Carousel.Item>
           <img
-            style={{ maxHeight: 300, maxWidth: 1200 }}
+            style={{ maxHeight: 400, maxWidth: 2400 }}
             className="d-block w-100"
             src="https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-f3860ceb0ef19643c335cb34df3fa1de166e2761-s1100-c50.jpg"
             alt="First slide"
@@ -29,7 +29,7 @@ export function Header() {
         </Carousel.Item>
         <Carousel.Item>
           <img
-            style={{ maxHeight: 300, maxWidth: 1200 }}
+            style={{ maxHeight: 400, maxWidth: 2400 }}
             className="d-block w-100"
             src="https://images.contentstack.io/v3/assets/blt6f84e20c72a89efa/bltc546c14512bb3c1d/62e1a9b498daae0f8f437f68/revplus-overview-og.jpg"
             alt="Second slide"
@@ -42,7 +42,7 @@ export function Header() {
         </Carousel.Item>
         <Carousel.Item>
           <img
-            style={{ maxHeight: 300, maxWidth: 1200 }}
+            style={{ maxHeight: 400, maxWidth: 2400 }}
             className="d-block w-100"
             src="https://i0.wp.com/post.healthline.com/wp-content/uploads/2020/07/petting_pet_cat-1296x728-header.jpg?w=1155&h=1528"
             alt="Third slide"

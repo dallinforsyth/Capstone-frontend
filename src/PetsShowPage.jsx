@@ -75,7 +75,7 @@ export function PetsShowPage(props) {
                     <p>Description: {pet.breed?.description}</p>
                     <p>Temperament: {pet.breed?.temperament}</p>
                     <p>Life Span: {pet.breed?.life_span} years</p>
-                    <p></p>Hypoallergenic: {pet.breed?.hypoallergenic}
+                    {/* <p></p>Hypoallergenic: {pet.breed?.hypoallergenic} */}
                   </div>
                 </Accordion.Body>
               </Accordion.Item>
@@ -84,7 +84,7 @@ export function PetsShowPage(props) {
 
             <p className="card-text">Food Schedule: </p>
             {pet.food_schedules?.map((item) => (
-              <div key={item.id}>
+              <div key={item.id} className="foodcentered-div">
                 <Card style={{ width: "18rem" }}>
                   <Card.Body>
                     {/* <Card.Title>Card Title</Card.Title> */}

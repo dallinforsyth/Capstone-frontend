@@ -1,7 +1,3 @@
 export function Footer() {
-  return (
-    <footer>
-      <p>Copyright 2022</p>
-    </footer>
-  );
+  return <footer>{/* <p>Copyright 2022</p> */}</footer>;
 }

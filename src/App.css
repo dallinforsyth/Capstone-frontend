@@ -41,3 +41,17 @@
 .read-the-docs {
   color: #888;
 }
+
+.centered-div {
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  height: 200vh;
+}
+
+.foodcentered-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40vh;
+}
